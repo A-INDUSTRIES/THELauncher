@@ -1,0 +1,126 @@
+QWidget {
+    background-color: #0f0f0f;
+    }
+
+QLabel {
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+QPushButton#game {
+    background: transparent;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: bottom;
+    color: white;
+    font-family: "TW Cen MT Condensed";
+    font-size: 20px;
+}
+
+QPushButton#game::pressed {
+    background: transparent;
+    border: 2px solid green;
+    border-radius: 5px;
+    text-align: bottom;
+    color: white;
+    font-family: "TW Cen MT Condensed";
+    font-size: 20px;
+}
+
+QPushButton#close {
+    background-color: #282828;
+    border: 1px solid black;
+    border-radius: 2px;
+    color: white;
+    font-family: "TW Cen MT Condensed";
+    font-size: 10px;
+}
+
+QPushButton#close::pressed {
+    background-color: #222222;
+    border: 1px solid red;
+    border-radius: 2px;
+    color: white;
+    font-family: "TW Cen MT Condensed";
+    font-size: 10px;
+}
+
+QScrollArea {
+    border: none;
+}
+
+QScrollBar:vertical {
+    border: 2px solid black;
+    background: grey;
+    border-radius: 5px;
+    margin: 22px 0 22px 0;
+}
+QScrollBar::handle:vertical {
+    background: #7289da;
+    border: 1px solid black;
+    border-radius: 2px;
+    min-height: 20px;
+}
+QScrollBar::add-line:vertical {
+    border: 2px solid black;
+    background: grey;
+    height: 20px;
+    border-radius: 5px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+    border: 2px solid black;
+    background: grey;
+    height: 20px;
+    border-radius: 5px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+    width: 3px;
+    height: 3px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QScrollBar:horizontal {
+    border: 2px solid black;
+    background: grey;
+    border-radius: 5px;
+    margin: 0 22px 0 22px;
+}
+QScrollBar::handle:horizontal {
+    background: #7289da;
+    border: 1px solid black;
+    border-radius: 2px;
+    min-width: 20px;
+}
+QScrollBar::add-line:horizontal {
+    border: 2px solid black;
+    background: grey;
+    width: 20px;
+    border-radius: 5px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+    border: 2px solid black;
+    background: grey;
+    width: 20px;
+    border-radius: 5px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+QScrollBar::left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
+    width: 3px;
+    height: 3px;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;
+}
