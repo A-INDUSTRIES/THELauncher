@@ -1,7 +1,7 @@
 from fbs_runtime.application_context.PySide2 import ApplicationContext
 from PySide2 import QtWidgets, QtCore, QtGui
 
-import sys, os, json, functools, webbrowser, time
+import sys, os, json, functools, webbrowser
 
 class MainWindow(QtWidgets.QWidget):
     def __init__(self, appctxt):
@@ -27,7 +27,8 @@ class MainWindow(QtWidgets.QWidget):
                     {
                         "name":"Add New",
                         "function":"New",
-                        "image": ""
+                        "image": "",
+                        "exe": ""
                     }
                 ], f, indent=4)
                 f.close()
@@ -100,13 +101,15 @@ class MainWindow(QtWidgets.QWidget):
         for ind, config in enumerate(self.btns_config):
             btn = QtWidgets.QPushButton(config["name"])
             btn.setObjectName("game")
-            btn.setFixedSize(175, 250)
+            btn.setFixedSize(179, 250)
             lbl = QtWidgets.QLabel()
-            lbl.setFixedSize(175, 250)
+            lbl.setFixedSize(179, 250)
             if config["function"] == "New":
                 btn.clicked.connect(self.addbtn)
             elif config["function"] == "Link":
                 btn.clicked.connect(functools.partial(self.open, ind))
+            elif config["function"] == "Run":
+                btn.clicked.connect(functools.partial(self.run, ind))
             if not config["image"] == "":
                 lbl.setPixmap(QtGui.QPixmap(config["image"]))
             self.btns.append(btn)
@@ -171,6 +174,11 @@ class MainWindow(QtWidgets.QWidget):
 
     def open(self, index):
         webbrowser.open(self.btns_config[index]["value"])
+        self.close()
+    
+    def run(self, index):
+        os.startfile(self.btns_config[index]["exe"])
+        self.close()
 
     def resizeEvent(self, size):
         self.__load_ui__()
@@ -180,7 +188,7 @@ class NewBtn(QtWidgets.QWidget):
 
     def __init__(self, writef):
         super().__init__()
-        self.setFixedSize(300,150)
+        self.setFixedSize(300,180)
 
         qtRectangle = self.frameGeometry()
         centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
@@ -192,8 +200,14 @@ class NewBtn(QtWidgets.QWidget):
         self.name = QtWidgets.QLineEdit()
         self.name.setPlaceholderText("Name")
 
+        self.function = QtWidgets.QComboBox()
+        self.function.addItems(["Link", "Run"])
+
         self.link = QtWidgets.QLineEdit()
-        self.link.setPlaceholderText("Link to open (for games found in the shortcut files)")
+        self.link.setPlaceholderText("Link to open (if LINK)")
+
+        self.exe = QtWidgets.QLineEdit()
+        self.exe.setPlaceholderText("Executable path (if RUN)")
 
         self.image = QtWidgets.QLineEdit()
         self.image.setPlaceholderText("FULL Path to image (175px/250px)")
@@ -202,16 +216,19 @@ class NewBtn(QtWidgets.QWidget):
         self.donebtn.clicked.connect(self.done_)
 
         self.lay.addWidget(self.name)
+        self.lay.addWidget(self.function)
         self.lay.addWidget(self.link)
+        self.lay.addWidget(self.exe)
         self.lay.addWidget(self.image)
         self.lay.addWidget(self.donebtn)
     
     def done_(self):
         self.writef({
                         "name": self.name.text(),
-                        "function": "Link",
+                        "function": self.function.currentText(),
                         "value": self.link.text(),
-                        "image": self.image.text()
+                        "image": self.image.text(),
+                        "exe": self.exe.text()
                     })
         self.close()
 
